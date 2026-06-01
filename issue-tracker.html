@@ -364,7 +364,10 @@ main{padding:28px 32px;max-width:900px;}
 <script>
 const SUPA_URL='https://culotrynimjqkvedfvzg.supabase.co';
 const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN1bG90cnluaW1qcWt2ZWRmdnpnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyODQxMjQsImV4cCI6MjA5NTg2MDEyNH0.U2n6vl31wgpNBsZ4Kg4MjdmD0CZJaObHEajW5nHJ_Cg';
-const sb = supabase.createClient(SUPA_URL, SUPA_KEY);
+const sb = supabase.createClient(SUPA_URL, SUPA_KEY, {
+  auth: { persistSession: false, autoRefreshToken: false },
+  global: { headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY } }
+});
 
 async function sbGet(table,params=''){
   let q = sb.from(table).select('*');
